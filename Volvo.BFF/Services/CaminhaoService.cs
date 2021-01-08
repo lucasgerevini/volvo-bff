@@ -12,11 +12,13 @@ namespace Volvo.BFF.Services
     {
         private readonly IConfiguration _configuration;
         private readonly ICaminhaoRepository _caminhaoRepository;
+        private readonly IModeloService _modeloService;
 
-        public CaminhaoService(IConfiguration configuration, ICaminhaoRepository caminhaoRepository)
+        public CaminhaoService(IConfiguration configuration, ICaminhaoRepository caminhaoRepository, IModeloService modeloService)
         {
             _configuration = configuration;
             _caminhaoRepository = caminhaoRepository;
+            _modeloService = modeloService;
         }
 
         public async Task Delete(int id)
@@ -40,16 +42,28 @@ namespace Volvo.BFF.Services
 
         public async Task<Caminhao> Save(Caminhao caminhao)
         {
+            ValidaCaminhao(caminhao);
+
             return await _caminhaoRepository.Save(caminhao);
+        }
+
+        private void ValidaCaminhao(Caminhao caminhao)
+        {
+            int anoAtual = DateTime.Now.Year;
+
+            if (caminhao is null) throw new ArgumentException("Caminhão inválido!");
+
+            if (caminhao.AnoModelo != anoAtual && caminhao.AnoModelo != (DateTime.Now.AddYears(1).Year)) throw new ArgumentException($"Ano do Modelo deve ser igual ou subsequente a {anoAtual}!");
+
+            if (caminhao.AnoFabricacao != anoAtual) throw new ArgumentException($"Ano do Fabricacao deve ser igual a {anoAtual}!");        
+
+            if (!_modeloService.ModeloPermitido(caminhao.SiglaModelo)) throw new ArgumentException($"Modelo não existe ou não é permitido!");
         }
 
         public async Task Update(Caminhao caminhao, int id)
         {
-            //Caminhao retorno = await _caminhaoRepository.Get(id);
+            ValidaCaminhao(caminhao);
 
-            //if (retorno is null) throw new ArgumentException("Caminhão não encontrado!");
-            //if (ObjectComparer<Caminhao>.IsDiff(caminhao, retorno)) throw new ArgumentException("Não possui alterações!");
-                
             await _caminhaoRepository.Update(caminhao);
         }
     }

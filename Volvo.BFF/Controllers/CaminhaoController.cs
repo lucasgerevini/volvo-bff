@@ -12,12 +12,12 @@ namespace Volvo.BFF.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class VolvoController : ControllerBase
+    public class CaminhaoController : ControllerBase
     {
-        private readonly ILogger<VolvoController> _logger;
+        private readonly ILogger<CaminhaoController> _logger;
         private readonly ICaminhaoService _caminhaoService;
 
-        public VolvoController(ILogger<VolvoController> logger, ICaminhaoService caminhaoService)
+        public CaminhaoController(ILogger<CaminhaoController> logger, ICaminhaoService caminhaoService)
         {
             _logger = logger;
             _caminhaoService = caminhaoService;
@@ -71,7 +71,7 @@ namespace Volvo.BFF.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try

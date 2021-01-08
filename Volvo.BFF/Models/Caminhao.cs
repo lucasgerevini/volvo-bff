@@ -12,6 +12,5 @@ namespace Volvo.BFF.Models
         [ForeignKey("Modelo")]
         public string SiglaModelo { get; set; }
         public Modelo Modelo { get; set; }
-        public DateTime? DataExclusao { get; set; }
     }
 }

@@ -53,7 +53,10 @@ namespace Volvo.BFF
             });
 
             services.AddScoped<ICaminhaoRepository, CaminhaoRepository>();
+            services.AddScoped<IModeloRepository, ModeloRepository>();
+            
             services.AddScoped<ICaminhaoService, CaminhaoService>();
+            services.AddScoped<IModeloService, ModeloService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

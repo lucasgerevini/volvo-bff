@@ -43,7 +43,6 @@ namespace Volvo.BFF.Repositories
 
         public async Task Update(Caminhao caminhao)
         {
-            //_context.Entry(caminhao).State = EntityState.Modified;
             _context.Update(caminhao);
             await _context.SaveChangesAsync();
         }
