@@ -41,7 +41,7 @@ namespace Volvo.Test
         }
 
         [Fact]
-        public void Adicionar_Caminhao_Ano_Fabricacao_Diferente_Atual()
+        public void Adicionar_Caminhao_AnoFabricacao_Diferente_ao_Atual()
         {
             Modelo modelo = new Modelo();
             modelo.Sigla = "FH";
@@ -71,7 +71,7 @@ namespace Volvo.Test
         }
 
         [Fact]
-        public void Adicionar_Caminhao_Ano_Modelo_Diferente_ao_Atual_ou_Subsequente()
+        public void Adicionar_Caminhao_AnoModelo_Diferente_ao_Atual_e_Subsequente()
         {
             Modelo modelo = new Modelo();
             modelo.Sigla = "FH";
